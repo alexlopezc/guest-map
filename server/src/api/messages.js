@@ -22,6 +22,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res, next) => {
+  console.log(req.body)
   const result = Joi.validate(req.body, schema);
   if (result.error === null) {
     const { name, message, latitude, longitude } = req.body;

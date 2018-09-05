@@ -53,13 +53,13 @@ class App extends Component {
       showMessageForm: true
     });
     getLocation()
-    .then(location => {
-      this.setState({
-        location,
-        haveUsersLocation: true,
-        zoom: 13
+      .then(location => {
+        this.setState({
+          location,
+          haveUsersLocation: true,
+          zoom: 13
+        });
       });
-    });
   }
 
   cancelMessage = () => {
@@ -82,7 +82,7 @@ class App extends Component {
 
   formSubmitted = (event) => {
     event.preventDefault();
-    
+
     if (this.formIsValid()) {
       this.setState({
         sendingMessage: true
@@ -131,11 +131,11 @@ class App extends Component {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {
-            this.state.haveUsersLocation ? 
-            <Marker
-              position={position}
-              icon={myIcon}>
-            </Marker> : ''
+            this.state.haveUsersLocation ?
+              <Marker
+                position={position}
+                icon={myIcon}>
+              </Marker> : ''
           }
           {this.state.messages.map(message => (
             <Marker
@@ -144,32 +144,29 @@ class App extends Component {
               icon={messageIcon}>
               <Popup>
                 <p><em>{message.name}:</em> {message.message}</p>
-                { message.otherMessages ? message.otherMessages.map(message => <p key={message._id}><em>{message.name}:</em> {message.message}</p>) : '' }
+                {message.otherMessages ? message.otherMessages.map(message => <p key={message._id}><em>{message.name}:</em> {message.message}</p>) : ''}
               </Popup>
             </Marker>
           ))}
         </Map>
         {
           !this.state.showMessageForm ?
-          <Button className="message-form" onClick={this.showMessageForm} color="info">Add a Message</Button> :
-          !this.state.sentMessage ?
-          <MessageCardForm
-            cancelMessage={this.cancelMessage}
-            showMessageForm={this.state.showMessageForm}
-            sendingMessage={this.state.sendingMessage}
-            sentMessage={this.state.sentMessage}
-            haveUsersLocation={this.state.haveUsersLocation}
-            formSubmitted={this.formSubmitted}
-            valueChanged={this.valueChanged}
-            formIsValid={this.formIsValid}
-          /> :
-          <Card body className="thanks-form">
-            <CardText>Thanks for submitting a message!</CardText>
-          </Card>
+            <Button className="message-form" onClick={this.showMessageForm} color="info">Add a Message</Button> :
+            !this.state.sentMessage ?
+              <MessageCardForm
+                cancelMessage={this.cancelMessage}
+                showMessageForm={this.state.showMessageForm}
+                sendingMessage={this.state.sendingMessage}
+                sentMessage={this.state.sentMessage}
+                haveUsersLocation={this.state.haveUsersLocation}
+                formSubmitted={this.formSubmitted}
+                valueChanged={this.valueChanged}
+                formIsValid={this.formIsValid}
+              /> :
+              <Card body className="thanks-form">
+                <CardText>Thanks for submitting a message!</CardText>
+              </Card>
         }
-        <Card className="footer">
-          <CardText> Made with <span role="img" aria-label="love">💚</span> by <a href="https://git.io/w3cj" target="_blank" rel="noopener noreferrer">w3cj</a></CardText>
-        </Card>
       </div>
     );
   }

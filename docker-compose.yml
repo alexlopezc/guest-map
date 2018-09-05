@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: always
+
+  server:
+    image: "node"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=mongo/medea
+    volumes:
+      - ./server/:/home/node/app
+    ports:
+      - 5000:5000
+    command: "npm run dev"
+
+  client:
+    image: "node"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./client/:/home/node/app
+    ports:
+      - 3000:3000
+    command: "npm start"
