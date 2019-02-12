@@ -34,6 +34,8 @@ docker-compose up
 
 Point your browser to http://localhost:3000 and start storing messages.
 
+There is also a simple example of how to use the api from a python script (ip_monitor.py)
+
 ## TODO
 
 * [x] create-react-app
